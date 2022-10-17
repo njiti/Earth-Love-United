@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">EarthLoveUnited</string>
+    <string name="app_name">Earth</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textview">TextView</string>
+    <string name="poem1">My aspens dear, whose airy cages quelled,\n</string>
+    <string name="item">item</string>
+    <string name="juliahill_com">juliahill.com</string>
+    <string name="website">Website</string>
+    <string name="join_clubs_to_find_like_minded_people">Join clubs to find like-minded people.</string>
 </resources>

@@ -8,4 +8,9 @@
     <string name="juliahill_com">juliahill.com</string>
     <string name="website">Website</string>
     <string name="join_clubs_to_find_like_minded_people">Join clubs to find like-minded people.</string>
+    <string name="logo">Logo</string>
+    <string name="login">Login</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="signup">Signup</string>
 </resources>

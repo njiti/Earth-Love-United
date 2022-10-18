@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "786601962077",
+    "project_id": "earth-love-united",
+    "storage_bucket": "earth-love-united.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786601962077:android:1d56b874ffb1f497f83bb4",
+        "android_client_info": {
+          "package_name": "com.elu.earthloveunited"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786601962077-fiikj9oklqokfdrt83a7aefqb577nfc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLTQeIYoB1YtcNsx-oH6I2zcDu60Dr7A8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786601962077-fiikj9oklqokfdrt83a7aefqb577nfc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

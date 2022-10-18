@@ -7,6 +7,16 @@
     android:background="#070707"
     tools:context=".ui.auth.LoginActivity">
 
+    <ProgressBar
+        android:id="@+id/loginLoader"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

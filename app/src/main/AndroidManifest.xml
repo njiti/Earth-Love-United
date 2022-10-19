@@ -32,7 +32,7 @@
             android:name=".ui.auth.GetPhoneNumber"
             android:exported="false" />
         <activity
-            android:name=".ui.Home"
+            android:name=".ui.posts.Home"
             android:exported="false" />
         <activity
             android:name=".ui.auth.OTPVerification"

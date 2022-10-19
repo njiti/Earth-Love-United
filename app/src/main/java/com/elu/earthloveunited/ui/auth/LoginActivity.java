@@ -3,7 +3,7 @@ package com.elu.earthloveunited.ui.auth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.elu.earthloveunited.ui.Home;
+import com.elu.earthloveunited.ui.posts.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.elu.earthloveunited.R;
 import com.elu.earthloveunited.databinding.ActivityLoginBinding;
 import com.elu.earthloveunited.databinding.ActivityRegisterBinding;
 import com.google.firebase.auth.AuthResult;

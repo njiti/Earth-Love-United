@@ -1,4 +1,4 @@
-package com.elu.earthloveunited.ui;
+package com.elu.earthloveunited.ui.posts;
 
 import androidx.appcompat.app.AppCompatActivity;
 

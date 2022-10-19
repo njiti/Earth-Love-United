@@ -4,49 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/earthLighterDark"
+    android:background="#0B1C1D"
     tools:context=".ui.auth.OTPVerification">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/natu" />
 
     <ProgressBar
         android:id="@+id/confirmLoader"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout14"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/inter"
+        android:text="My confirmation code is"
+        android:textAlignment="center"
+        android:textColor="@color/earthGreen"
+        android:textSize="38sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter"
-            android:text="My confirmation code is"
-            android:textColor="@color/earthGreen"
-            android:textSize="36sp" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     <LinearLayout
         android:id="@+id/linearLayout15"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout14">
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <com.chaos.view.PinView
             android:id="@+id/pinView"
@@ -68,14 +77,17 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout15"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout15">
+        app:layout_constraintStart_toStartOf="@+id/linearLayout15"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout15"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/otpCodeNext"
@@ -89,11 +101,21 @@
             android:fontFamily="@font/inter"
             android:text="NEXT"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            app:cornerRadius="15dp"
             android:textSize="16sp"
-            />
+            android:textStyle="bold"
+            app:cornerRadius="10dp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:srcCompat="@drawable/white_back_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

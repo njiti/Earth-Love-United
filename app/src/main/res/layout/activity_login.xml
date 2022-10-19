@@ -75,12 +75,12 @@
         android:text="Don't have an account ?"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/signupbtn"
+        app:layout_constraintEnd_toStartOf="@+id/signUpRedirect"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/signupbtn"
+        android:id="@+id/signUpRedirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

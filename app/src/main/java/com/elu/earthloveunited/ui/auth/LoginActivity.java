@@ -35,6 +35,11 @@ public class LoginActivity extends AppCompatActivity {
         binding.layLogin.signInButton.setOnClickListener(view -> {
             loginUser();
         });
+
+        binding.signUpRedirect.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void loginUser() {
@@ -61,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Failed To Login", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                startActivity(new Intent(LoginActivity.this, GetPhoneNumber.class));
+                                startActivity(new Intent(LoginActivity.this, Home.class));
 //                                LoginActivity.this.finish();
                             }
                         }

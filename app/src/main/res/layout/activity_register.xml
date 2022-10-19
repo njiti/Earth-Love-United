@@ -4,8 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D1262626"
+    android:background="#0b1819"
     tools:context=".ui.auth.RegisterActivity">
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/na" />
 
     <TextView
         android:id="@+id/textView5"
@@ -61,7 +73,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="@color/green"
         android:backgroundTintMode="@color/green"
         android:fontFamily="@font/inter"
@@ -70,9 +82,9 @@
         android:textStyle="bold"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/textView19"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/textView19"
@@ -81,6 +93,7 @@
         android:layout_marginBottom="64dp"
         android:fontFamily="@font/inter"
         android:text="Already have an account?"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/loginRedirect"

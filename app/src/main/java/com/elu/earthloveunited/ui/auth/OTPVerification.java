@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 public class OTPVerification extends AppCompatActivity {
 
     private String verificationId;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseAuth mAuth;
 //    private ProgressBar confirmLoader;
 //    private PinView editText;
@@ -70,6 +71,7 @@ public class OTPVerification extends AppCompatActivity {
 
     }
 
+//    Here we now authenticate using the actual OTP number that the user has entered
 
     private void signInWithCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
@@ -78,9 +80,9 @@ public class OTPVerification extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            Toast.makeText(OTPVerification.this, task.toString(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(OTPVerification.this, Home.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 
                         } else {
@@ -89,6 +91,8 @@ public class OTPVerification extends AppCompatActivity {
                     }
                 });
     }
+
+//    Here we sen the verification code/ message that contains the verification code
 
     private void sendVerificationCode(String valuePhone) {
         binding.confirmLoader.setVisibility(View.VISIBLE);
@@ -103,22 +107,24 @@ public class OTPVerification extends AppCompatActivity {
 
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks
             mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             verificationId = s;
+//            mResendToken = forceResendingToken;
         }
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             String code = phoneAuthCredential.getSmsCode();
-            if (code != null) {
-                binding.pinView.setText(code);
-                verifyCode(code);
-            }
+            binding.pinView.setText(code);
+            verifyCode(code);
+            Log.d("VERIF", "onVerificationCompleted:" + phoneAuthCredential);
+
+            signInWithCredential(phoneAuthCredential);
         }
 
         @Override

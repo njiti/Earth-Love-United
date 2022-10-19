@@ -2,6 +2,7 @@ package com.elu.earthloveunited.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,12 +34,17 @@ public class RegisterActivity extends AppCompatActivity {
         binding.buttonSignUp.setOnClickListener(view -> {
             registerUser();
         });
+
+        binding.loginRedirect.setOnClickListener(view -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void registerUser() {
         String password = binding.layRegister.password.getText().toString().trim();
-        String email  = binding.layRegister.Email.getText().toString().trim();
-        String name  = binding.layRegister.Name.getText().toString().trim();
+        String email = binding.layRegister.Email.getText().toString().trim();
+        String name = binding.layRegister.Name.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             binding.layRegister.Email.setError("Email cannot be empty");
@@ -51,17 +57,15 @@ public class RegisterActivity extends AppCompatActivity {
             binding.layRegister.Name.requestFocus();
         } else {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d("TAG", "New user registration: " + task.isSuccessful());
+                    .addOnCompleteListener(RegisterActivity.this, task -> {
+                        Log.d("TAG", "New user registration: " + task.isSuccessful());
 
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Failed To Register User", Toast.LENGTH_SHORT).show();
-                            } else {
-                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-//                                RegisterActivity.this.finish();
-                            }
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Registered User Successfully!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            RegisterActivity.this.finish();
                         }
                     });
         }

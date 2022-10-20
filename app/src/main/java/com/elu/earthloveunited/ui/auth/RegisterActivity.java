@@ -12,10 +12,17 @@ import android.widget.Toast;
 import com.elu.earthloveunited.R;
 import com.elu.earthloveunited.databinding.ActivityLaunchBinding;
 import com.elu.earthloveunited.databinding.ActivityRegisterBinding;
+import com.elu.earthloveunited.ui.posts.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -57,17 +64,36 @@ public class RegisterActivity extends AppCompatActivity {
             binding.layRegister.Name.requestFocus();
         } else {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(RegisterActivity.this, task -> {
-                        Log.d("TAG", "New user registration: " + task.isSuccessful());
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                String email = user.getEmail();
+                                String uid = user.getUid();
+                                HashMap<Object, String> hashMap = new HashMap<>();
+                                hashMap.put("email", email);
+                                hashMap.put("uid", uid);
+                                hashMap.put("name", name);
 
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, "Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Registered User Successfully!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                            RegisterActivity.this.finish();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference reference = database.getReference("Users");
+                                reference.child(uid).setValue(hashMap);
+                                Toast.makeText(RegisterActivity.this, "Registered User " + user.getEmail(), Toast.LENGTH_LONG).show();
+                                Intent mainIntent = new Intent(RegisterActivity.this, Home.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainIntent);
+                                finish();
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RegisterActivity.this, "Error Occurred", Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
 

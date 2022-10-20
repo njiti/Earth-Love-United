@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.elu.earthloveunited.R;
+import com.elu.earthloveunited.databinding.ActivityOtpverificationBinding;
 import com.elu.earthloveunited.ui.posts.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

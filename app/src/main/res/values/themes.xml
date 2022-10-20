@@ -31,4 +31,5 @@
     <style name="Theme.EarthLoveUnited.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.EarthLoveUnited.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

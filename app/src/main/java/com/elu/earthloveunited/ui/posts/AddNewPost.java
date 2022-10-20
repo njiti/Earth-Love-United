@@ -1,6 +1,13 @@
 package com.elu.earthloveunited.ui.posts;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -10,24 +17,19 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.elu.earthloveunited.R;
+import com.elu.earthloveunited.databinding.ActivityAddNewPostBinding;
+import com.elu.earthloveunited.databinding.ActivityHomeBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,20 +47,16 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
-public class AddPost extends Fragment {
-
-    public AddPost() {
-        // Required empty public constructor
-    }
+public class AddNewPost extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
-    EditText title, des;
+    EditText des;
     private static final int CAMERA_REQUEST = 100;
     private static final int STORAGE_REQUEST = 200;
     String cameraPermission[];
     String storagePermission[];
     ProgressDialog pd;
-    ImageView image;
+    ImageView image, imagePreview;
     String edititle, editdes, editimage;
     private static final int IMAGEPICK_GALLERY_REQUEST = 300;
     private static final int IMAGE_PICKCAMERA_REQUEST = 400;
@@ -68,18 +66,22 @@ public class AddPost extends Fragment {
     DatabaseReference databaseReference;
     Button upload;
 
+    ActivityAddNewPostBinding binding;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        firebaseAuth = FirebaseAuth.getInstance();
-        View view = inflater.inflate(R.layout.fragment_add_post, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityAddNewPostBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        title = view.findViewById(R.id.ptitle);
-        des = view.findViewById(R.id.pdes);
-        image = view.findViewById(R.id.imagep);
-        upload = view.findViewById(R.id.pupload);
-        pd = new ProgressDialog(getContext());
+        firebaseAuth = FirebaseAuth.getInstance();
+//        title = binding.ptitle;
+        des = binding.pdes;
+        image = binding.imagep;
+//        imagePreview = binding.imagePreview;
+        upload = binding.pupload;
+        pd = new ProgressDialog(AddNewPost.this);
         pd.setCanceledOnTouchOutside(false);
-        Intent intent = getActivity().getIntent();
+//        Intent intent = getApplicationContext().getIntent();
 
         // Retrieving the user data like name ,email and profile pic using query
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -116,40 +118,40 @@ public class AddPost extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String titl = "" + title.getText().toString().trim();
+//                String titl = "" + title.getText().toString().trim();
                 String description = "" + des.getText().toString().trim();
 
                 // If empty set error
-                if (TextUtils.isEmpty(titl)) {
-                    title.setError("Title Cant be empty");
-                    Toast.makeText(getContext(), "Title can't be left empty", Toast.LENGTH_LONG).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(titl)) {
+//                    title.setError("Title Cant be empty");
+//                    Toast.makeText(AddNewPost.this, "Title can't be left empty", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
 
                 // If empty set error
                 if (TextUtils.isEmpty(description)) {
                     des.setError("Description Cant be empty");
-                    Toast.makeText(getContext(), "Description can't be left empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNewPost.this, "Description can't be left empty", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // If empty show error
                 if (imageuri == null) {
-                    Toast.makeText(getContext(), "Select an Image", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNewPost.this, "Select an Image", Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                    uploadData(titl, description);
+                    uploadData(description);
                 }
             }
         });
-        return view;
     }
 
     private void showImagePicDialog() {
         String options[] = {"Camera", "Gallery"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddNewPost.this);
         builder.setTitle("Pick Image From");
         builder.setItems(options, new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // check for the camera and storage permission if
@@ -174,13 +176,14 @@ public class AddPost extends Fragment {
 
     // check for storage permission
     private Boolean checkStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        boolean result = ContextCompat.checkSelfPermission(AddNewPost.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
     // if not given then request for permission after that check if request is given or not
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case CAMERA_REQUEST: {
                 if (grantResults.length > 0) {
@@ -191,7 +194,7 @@ public class AddPost extends Fragment {
                     if (camera_accepted && writeStorageaccepted) {
                         pickFromCamera();
                     } else {
-                        Toast.makeText(getContext(), "Please Enable Camera and Storage Permissions", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddNewPost.this, "Please Enable Camera and Storage Permissions", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -206,7 +209,7 @@ public class AddPost extends Fragment {
                     if (writeStorageaccepted) {
                         pickFromGallery();
                     } else {
-                        Toast.makeText(getContext(), "Please Enable Storage Permissions", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddNewPost.this, "Please Enable Storage Permissions", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -215,18 +218,20 @@ public class AddPost extends Fragment {
     }
 
     // request for permission to write data into storage
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestStoragePermission() {
         requestPermissions(storagePermission, STORAGE_REQUEST);
     }
 
     // check camera permission to click picture using camera
     private Boolean checkCameraPermission() {
-        boolean result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
-        boolean result1 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        boolean result = ContextCompat.checkSelfPermission(AddNewPost.this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+        boolean result1 = ContextCompat.checkSelfPermission(AddNewPost.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
 
     // request for permission to click photo using camera in app
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestCameraPermission() {
         requestPermissions(cameraPermission, CAMERA_REQUEST);
     }
@@ -237,7 +242,7 @@ public class AddPost extends Fragment {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_pic");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
-        imageuri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        imageuri = AddNewPost.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
         Intent camerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         camerIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageuri);
         startActivityForResult(camerIntent, IMAGE_PICKCAMERA_REQUEST);
@@ -251,7 +256,7 @@ public class AddPost extends Fragment {
     }
 
     // Upload the value of blog data into firebase
-    private void uploadData(final String titl, final String description) {
+    private void uploadData(final String description) {
         // show the progress dialog box
         pd.setMessage("Publishing Post");
         pd.show();
@@ -278,7 +283,7 @@ public class AddPost extends Fragment {
                     hashMap.put("uname", name);
                     hashMap.put("uemail", email);
                     hashMap.put("udp", dp);
-                    hashMap.put("title", titl);
+//                    hashMap.put("title", titl);
                     hashMap.put("description", description);
                     hashMap.put("uimage", downloadUri);
                     hashMap.put("ptime", timestamp);
@@ -292,19 +297,19 @@ public class AddPost extends Fragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     pd.dismiss();
-                                    Toast.makeText(getContext(), "Published", Toast.LENGTH_LONG).show();
-                                    title.setText("");
+                                    Toast.makeText(AddNewPost.this, "Published", Toast.LENGTH_LONG).show();
+//                                    title.setText("");
                                     des.setText("");
                                     image.setImageURI(null);
                                     imageuri = null;
-                                    startActivity(new Intent(getContext(), Home.class));
-                                    getActivity().finish();
+                                    startActivity(new Intent(AddNewPost.this, Home.class));
+                                    AddNewPost.this.finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             pd.dismiss();
-                            Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddNewPost.this, "Failed", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -313,7 +318,7 @@ public class AddPost extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddNewPost.this, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -321,7 +326,7 @@ public class AddPost extends Fragment {
     // Here we are getting data from image
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             if (requestCode == IMAGEPICK_GALLERY_REQUEST) {
                 imageuri = data.getData();
                 image.setImageURI(imageuri);

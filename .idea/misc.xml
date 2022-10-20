@@ -4,18 +4,29 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.107" />
+        <entry key="app/src/main/res/drawable-hdpi/rounded.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_cm.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/ic_round_image_24.xml" value="0.1025" />
+        <entry key="app/src/main/res/drawable/ic_share.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/prev_image.xml" value="0.1025" />
+        <entry key="app/src/main/res/layout/activity_add_new_post.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_display_profile.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_get_phone_number.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1984375" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_launch.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_otpverification.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.1984375" />
-        <entry key="app/src/main/res/layout/fragment_add_post.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/backup_post.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_add_post.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1984375" />
+        <entry key="app/src/main/res/layout/interest_item.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/lay_register.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/layout_login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/post_item.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/post_layout.xml" value="0.2" />
       </map>
     </option>
   </component>
@@ -28,11 +39,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-<<<<<<< Updated upstream
-        <option name="scale" value="0.5" />
-=======
         <option name="scale" value="0.22" />
->>>>>>> Stashed changes
       </ProjectState>
     </option>
   </component>

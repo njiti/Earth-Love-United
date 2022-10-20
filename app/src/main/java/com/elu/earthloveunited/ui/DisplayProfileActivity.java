@@ -52,8 +52,8 @@ public class DisplayProfileActivity extends AppCompatActivity {
         binding.editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayProfileActivity.this, editActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(DisplayProfileActivity.this, editActivity.class);
+//                startActivity(intent);
             }
         });
         interestsRecycler=binding.interestsRecycler;
@@ -94,8 +94,8 @@ public class DisplayProfileActivity extends AppCompatActivity {
         binding.savedLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplayProfileActivity.this, PostsActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(DisplayProfileActivity.this, PostsActivity.class);
+//                startActivity(intent);
             }
         });
         setContentView(binding.getRoot());
